@@ -11,5 +11,3 @@ export const selectUserError = createSelector(
   [selectUser],
   user => user.error
 );
-
-
