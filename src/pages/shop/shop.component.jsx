@@ -8,9 +8,6 @@ import CollectionsOverviewContainer from '../../components/collections-overview/
 import CollectionPageContainer from '../collection/collection.container';
 
 class ShopPage extends React.Component {
-
-  unsubscribeFromSnapshot = null;
-
   componentDidMount() {
     const { fetchCollectionsStart } = this.props;
     fetchCollectionsStart();
@@ -19,7 +16,7 @@ class ShopPage extends React.Component {
   render() {
     const { match } = this.props;
     return (
-      <>
+      <div className='shop-page'>
         <Route
           exact
           path={`${match.path}`}
@@ -27,9 +24,9 @@ class ShopPage extends React.Component {
         />
         <Route
           path={`${match.path}/:collectionId`}
-          componen={CollectionPageContainer}
+          component={CollectionPageContainer}
         />
-      </>
+      </div>
     );
   }
 }
