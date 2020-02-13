@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
-import { selectUserError } from "../../redux/user/user.selectors";
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
+
 import {
   googleSignInStart,
   emailSignInStart
-} from "../../redux/user/user.actions";
+} from '../../redux/user/user.actions';
 
 import {
   SignInContainer,
   SignInTitle,
   ButtonsBarContainer
-} from "./sign-in.styles";
+} from './sign-in.styles';
 
-const SignIn = ({ googleSignInStart, emailSignInStart, error }) => {
-
+const SignIn = ({ emailSignInStart, googleSignInStart }) => {
   const [userCredentials, setCredentials] = useState({
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   });
+
   const { email, password } = userCredentials;
 
   const handleSubmit = async event => {
@@ -43,25 +42,25 @@ const SignIn = ({ googleSignInStart, emailSignInStart, error }) => {
 
       <form onSubmit={handleSubmit}>
         <FormInput
-          name="email"
-          type="email"
+          name='email'
+          type='email'
           handleChange={handleChange}
-          value={userCredentials.email}
-          label="email"
+          value={email}
+          label='email'
           required
         />
         <FormInput
-          name="password"
-          type="password"
-          value={userCredentials.password}
+          name='password'
+          type='password'
+          value={password}
           handleChange={handleChange}
-          label="password"
+          label='password'
           required
         />
         <ButtonsBarContainer>
-          <CustomButton type="submit"> Sign in </CustomButton>
+          <CustomButton type='submit'> Sign in </CustomButton>
           <CustomButton
-            type="button"
+            type='button'
             onClick={googleSignInStart}
             isGoogleSignIn
           >
@@ -69,16 +68,6 @@ const SignIn = ({ googleSignInStart, emailSignInStart, error }) => {
           </CustomButton>
         </ButtonsBarContainer>
       </form>
-      {error ? (
-        <span
-          style={{
-            color: "red",
-            margin: 10
-          }}
-        >
-          {error.message}
-        </span>
-      ) : null}
     </SignInContainer>
   );
 };
@@ -89,8 +78,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(emailSignInStart({ email, password }))
 });
 
-const mapStateToProps = createStructuredSelector({
-  error: selectUserError
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(
+  null,
+  mapDispatchToProps
+)(SignIn);
